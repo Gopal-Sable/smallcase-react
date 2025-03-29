@@ -9,7 +9,11 @@ const FilterSection = ({
     const changeFilter = (feild, value) => {
         setFilters((prev) => {
             let newfilter = {};
-            if (feild === "subscription" || feild === "investmentAmount") {
+            if (
+                feild === "subscription" ||
+                feild === "investmentAmount" ||
+                feild === "newLaunch"
+            ) {
                 newfilter = {
                     ...prev,
                     [feild]: value === null ? [] : [value],
@@ -25,6 +29,7 @@ const FilterSection = ({
                         : [...prev[feild], value],
                 };
             }
+
             return newfilter;
         });
     };
@@ -192,7 +197,17 @@ const FilterSection = ({
             <div className="my-2 py-2">
                 <h2 className="font-semibold">Launch Date</h2>
                 <div className="my-1">
-                    <input type="checkbox" name="new-launch" id="new-launch" />
+                    <input
+                        type="checkbox"
+                        name="new-launch"
+                        id="new-launch"
+                        checked={filters.newLaunch.length !== 0}
+                        onChange={() =>
+                            filters.newLaunch.length === 0
+                                ? changeFilter("newLaunch", true)
+                                : changeFilter("newLaunch", null)
+                        }
+                    />
                     <label className="ml-2" htmlFor="new-launch">
                         Include new smallcases
                     </label>
@@ -202,31 +217,30 @@ const FilterSection = ({
                 <h2 className="font-semibold">Investment Strategy</h2>
                 <div>
                     {
-                        investStrategyList.map(({ key, displayName }) => {
-                            return (
-                                <div key={key} className="my-1">
-                                    <input
-                                        type="checkbox"
-                                        name={key}
-                                        id={key}
-                                        checked={filters.investementStrategy.includes(
-                                            key
-                                        )}
-                                        onChange={() =>
-                                            changeFilter(
-                                                "investementStrategy",
+                        investStrategyList
+                            .map(({ key, displayName }) => {
+                                return (
+                                    <div key={key} className="my-1">
+                                        <input
+                                            type="checkbox"
+                                            name={key}
+                                            id={key}
+                                            checked={filters.investementStrategy.includes(
                                                 key
-                                            )
-                                        }
-                                    />
-                                    <label className="ml-2" htmlFor={key}>
-                                        {displayName}
-                                    </label>
-                                </div>
-                            );
-                        })
-
-                        // })
+                                            )}
+                                            onChange={() =>
+                                                changeFilter(
+                                                    "investementStrategy",
+                                                    key
+                                                )
+                                            }
+                                        />
+                                        <label className="ml-2" htmlFor={key}>
+                                            {displayName}
+                                        </label>
+                                    </div>
+                                );
+                            })
                     }
                 </div>
             </div>

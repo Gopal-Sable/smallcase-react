@@ -33,7 +33,10 @@ const ListItem = ({ portfolio }) => {
                         Min. Amount
                     </label>
                     <p className="text-black text-l font-medium">
-                        ₹ {portfolio.stats.minInvestAmount.toLocaleString("en-IN")}
+                        {portfolio.stats.minInvestAmount.toLocaleString(
+                            "en-IN",
+                            { style: "currency", currency: "INR", minimumFractionDigits: 0,}
+                        )}
                     </p>
                 </div>
                 <div className="mx-2 text-nowrap text-center self-center">

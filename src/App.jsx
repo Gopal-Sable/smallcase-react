@@ -6,18 +6,35 @@ import SmallCaseList from "./components/SmallCaseList";
 import { combinedFilter, subscriptionFilter } from "./utils/filters";
 import { useState } from "react";
 import { getInvestmentStartegies } from "./utils/getInvestmentStrategies";
+import SortSection from "./components/SortSection";
+import {
+    sortByMinimumAmount,
+    sortByPopularity,
+    sortByRebalnced,
+    sortByReturns,
+    sortData,
+} from "./utils/sortData";
 
 let initialFilters = {
     subscription: [],
     investmentAmount: [],
     volitility: [],
     investementStrategy: [],
+    newLaunch: [],
+};
+let initialSorting = {
+    //  sortType popularity  minimumAmount monthly halfyearly yearly threeYear fiveYear
+    // orderBy "High-Low" ,"Low-High"
+    sortType: "popularity",
+    orderBy: "High-Low",
 };
 
 function App() {
     const [filters, setFilters] = useState(initialFilters);
+    const [sortBy, setSortBy] = useState(initialSorting);
     let filterData = combinedFilter(smallCaseData.data, filters);
     let investStrategyList = getInvestmentStartegies(smallCaseData.data);
+    let sortedData = sortData(filterData, sortBy);
 
     const clearAllfilters = () => {
         setFilters(initialFilters);
@@ -25,6 +42,7 @@ function App() {
     return (
         <>
             <Navbar />
+            <SortSection sortBy={sortBy} setSortBy={setSortBy} />
             <div className="flex mt-4 justify-center">
                 <FilterSection
                     filters={filters}
@@ -32,7 +50,7 @@ function App() {
                     investStrategyList={investStrategyList}
                     clearAllfilters={clearAllfilters}
                 />
-                <SmallCaseList smallCaseData={filterData} />
+                <SmallCaseList smallCaseData={sortedData} />
             </div>
         </>
     );

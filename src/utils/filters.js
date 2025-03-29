@@ -1,3 +1,5 @@
+import filter from "daisyui/components/filter";
+
 export const subscriptionFilter = (data, filterFeild) => {
     if (filterFeild.includes("free access")) {
         return data.filter((portfolio) => !portfolio.flags.private);
@@ -38,6 +40,18 @@ export const investementStrategy = (data, strategy) => {
           });
 };
 
+const newLaunch = (data, filter) => {
+    if (filter.length === 0) {
+        return data;
+    }
+
+    return data.filter((portfolio) => {
+        const oneYearAgo = new Date();
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+        return new Date(portfolio.info.nameAttributes.createdAt) >= oneYearAgo;
+    });
+};
 export const combinedFilter = (data, filters) => {
     let filterData = data;
     if (filters.subscription) {
@@ -54,6 +68,9 @@ export const combinedFilter = (data, filters) => {
             filterData,
             filters.investementStrategy
         );
+    }
+    if (filter.newLaunch) {
+        filterData = newLaunch(filterData, filter.newLaunch);
     }
     return filterData;
 };
