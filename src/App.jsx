@@ -7,15 +7,21 @@ import { combinedFilter, subscriptionFilter } from "./utils/filters";
 import { useState } from "react";
 import { getInvestmentStartegies } from "./utils/getInvestmentStrategies";
 
-
+let initialFilters = {
+    subscription: [],
+    investmentAmount: [],
+    volitility: [],
+    investementStrategy: [],
+};
 
 function App() {
-    const [filters, setFilters] = useState({});
+    const [filters, setFilters] = useState(initialFilters);
     let filterData = combinedFilter(smallCaseData.data, filters);
     let investStrategyList = getInvestmentStartegies(smallCaseData.data);
-console.log(investStrategyList);
 
-
+    const clearAllfilters = () => {
+        setFilters(initialFilters);
+    };
     return (
         <>
             <Navbar />
@@ -24,6 +30,7 @@ console.log(investStrategyList);
                     filters={filters}
                     setFilters={setFilters}
                     investStrategyList={investStrategyList}
+                    clearAllfilters={clearAllfilters}
                 />
                 <SmallCaseList smallCaseData={filterData} />
             </div>

@@ -1,7 +1,7 @@
 export const subscriptionFilter = (data, filterFeild) => {
-    if (filterFeild === "free access") {
+    if (filterFeild.includes("free access")) {
         return data.filter((portfolio) => !portfolio.flags.private);
-    } else if (filterFeild === "fee based") {
+    } else if (filterFeild.includes("fee based")) {
         return data.filter((portfolio) => portfolio.flags.private);
     } else {
         return data;
@@ -9,30 +9,33 @@ export const subscriptionFilter = (data, filterFeild) => {
 };
 
 export const investmentAmount = (data, amount) => {
-    if (!amount) {
+    if (amount.length === 0) {
         return data;
     }
-    return data.filter((portfolio) => portfolio.stats.minInvestAmount < amount);
+    return data.filter(
+        (portfolio) => portfolio.stats.minInvestAmount < amount[0]
+    );
 };
 
 export const volitility = (data, risk) => {
-    return data.filter(
-        (portfolio) => portfolio.stats.ratios.riskLabel === risk
+    if (risk.length === 0) {
+        return data;
+    }
+    return data.filter((portfolio) =>
+        risk.includes(portfolio.stats.ratios.riskLabel)
     );
 };
 
 export const investementStrategy = (data, strategy) => {
-    return data.filter((portfolio) => {
-        // return (
-        //     portfolio.info.investmentStrategy.find(({ key }) => {
-        //         key === strategy;
-        //     }) !== undefined
-        // );
-       
-            return portfolio.info.investmentStrategy.find(({ key }) => key === strategy);
-       
-        
-    });
+    return strategy.length === 0
+        ? data
+        : data.filter((portfolio) => {
+              return (
+                  portfolio.info.investmentStrategy.find(({ key }) =>
+                      strategy.includes(key)
+                  ) !== undefined
+              );
+          });
 };
 
 export const combinedFilter = (data, filters) => {
