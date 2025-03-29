@@ -3,17 +3,11 @@ import smallCaseData from "./assets/smallcases.json";
 import FilterSection from "./components/FilterSection";
 import Navbar from "./components/Navbar";
 import SmallCaseList from "./components/SmallCaseList";
-import { combinedFilter, subscriptionFilter } from "./utils/filters";
+import { combinedFilter } from "./utils/filters";
 import { useState } from "react";
 import { getInvestmentStartegies } from "./utils/getInvestmentStrategies";
 import SortSection from "./components/SortSection";
-import {
-    sortByMinimumAmount,
-    sortByPopularity,
-    sortByRebalnced,
-    sortByReturns,
-    sortData,
-} from "./utils/sortData";
+import { sortData } from "./utils/sortData";
 
 let initialFilters = {
     subscription: [],
@@ -50,7 +44,7 @@ function App() {
                     investStrategyList={investStrategyList}
                     clearAllfilters={clearAllfilters}
                 />
-                <SmallCaseList smallCaseData={sortedData} />
+                <SmallCaseList smallCaseData={sortedData} sortBy={sortBy} />
             </div>
         </>
     );

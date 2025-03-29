@@ -1,7 +1,16 @@
 import React from "react";
-import { LOGO_URL } from "../utils/constantsAndUrl";
-
-const ListItem = ({ portfolio }) => {
+import { CAGR_LABLE, LOGO_URL } from "../utils/constantsAndUrl";
+let divideByYear={
+    monthly: 1,
+    halfyearly: 1,
+    yearly: 1,
+    threeYear: 3,
+    fiveYear: 5,
+}
+const ListItem = ({ portfolio, sortBy }) => {
+    let cagr = CAGR_LABLE.hasOwnProperty(sortBy.sortType)
+        ? portfolio.stats.returns[sortBy.sortType]*100 / divideByYear[sortBy.sortType]
+        : portfolio.platformData.ratios.cagr *100;
     return (
         <div className="flex hover:shadow-xl mx-2 w-198 border p-4 border-white border-b-gray-400 hover:rounded-lg hover:border-gray-400 hover:text-blue-500">
             <img
@@ -35,16 +44,27 @@ const ListItem = ({ portfolio }) => {
                     <p className="text-black text-l font-medium">
                         {portfolio.stats.minInvestAmount.toLocaleString(
                             "en-IN",
-                            { style: "currency", currency: "INR", minimumFractionDigits: 0,}
+                            {
+                                style: "currency",
+                                currency: "INR",
+                                minimumFractionDigits: 0,
+                            }
                         )}
                     </p>
                 </div>
                 <div className="mx-2 text-nowrap text-center self-center">
                     <label htmlFor="" className="text-gray-600 text-sm">
-                        {portfolio.platformData.ratios.cagrDuration}
+                        {CAGR_LABLE.hasOwnProperty(sortBy.sortType)
+                            ? CAGR_LABLE[sortBy.sortType]
+                            : portfolio.platformData.ratios.cagrDuration}
                     </label>
-                    <p className="text-green-600 text-l font-medium">
-                        {(portfolio.platformData.ratios.cagr * 100).toFixed(2)}
+                    {}
+                    <p
+                        className={`${
+                            cagr < 0 ? "text-red-600" : "text-green-600"
+                        } text-l font-medium`}
+                    >
+                        {(cagr).toFixed(2)}
                     </p>
                 </div>
                 <button className="text-nowrap">
