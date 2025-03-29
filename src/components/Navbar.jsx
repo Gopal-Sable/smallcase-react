@@ -3,8 +3,8 @@ import Logo from "../assets/Logo.svg";
 import Kite from "../assets/kite-logo.svg";
 const Navbar = () => {
     return (
-        <Navbar className="flex justify-center border-b border-gray-300 text-gray-500">
-            <nav className="flex justify-between w-256">
+        <div className="flex justify-center border-b border-gray-300 text-gray-500">
+            <nav className="flex justify-between w-258">
                 <div className="flex justify-center items-center m-2">
                     <a href="" className="mr-8 ">
                         <img src={Logo} alt="" />
@@ -36,7 +36,7 @@ const Navbar = () => {
                     </a>
                 </div>
             </nav>
-        </Navbar>
+        </div>
     );
 };
 
