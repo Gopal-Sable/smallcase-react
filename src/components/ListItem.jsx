@@ -42,7 +42,7 @@ const ListItem = ({ portfolio, sortBy }) => {
                 </div>
                 <div className="flex mx-2">
                     <div className="text-nowrap self-center">
-                        <label htmlFor="" className="text-gray-600 text-sm">
+                        <label className="text-gray-600 text-sm">
                             Min. Amount
                         </label>
                         <p className="text-black text-l font-medium">
@@ -57,7 +57,7 @@ const ListItem = ({ portfolio, sortBy }) => {
                         </p>
                     </div>
                     <div className="mx-2 text-nowrap text-center self-center">
-                        <label htmlFor="" className="text-gray-600 text-sm">
+                        <label className="text-gray-600 text-sm">
                             {CAGR_LABLE.hasOwnProperty(sortBy.sortType)
                                 ? CAGR_LABLE[sortBy.sortType]
                                 : portfolio.platformData.ratios.cagrDuration}

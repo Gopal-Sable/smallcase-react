@@ -110,6 +110,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
                 <div className="relative flex items-center border-b border-gray-400 w-64">
                     <FaSearch className="absolute left-2 text-gray-400" />
                     <input
+                        id="search"
                         type="text"
                         placeholder="smallcase, manager or a stock..."
                         className="pl-8 py-1 w-full outline-none text-gray-600"
