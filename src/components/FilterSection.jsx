@@ -53,12 +53,12 @@ const FilterSection = ({
             </div>
             <div className=" font-semibold my-2 py-2">
                 <h2>Subscription Type</h2>
-                <div className="text-sm flex justify-between my-1 text-wrap">
+                <div className="text-sm font-semibold  flex justify-between my-1 text-wrap">
                     <button
-                        className={`border rounded-l-md p-2 ${
+                        className={`border border-r-0 cursor-pointer rounded-l-md p-2 ${
                             filters.subscription.length === 0
-                                ? "border-blue-400"
-                                : ""
+                                ? "bg-blue-100 text-blue-600"
+                                : "hover:bg-gray-200"
                         }`}
                         onClick={() => {
                             changeFilter("subscription", null);
@@ -67,10 +67,10 @@ const FilterSection = ({
                         Show all
                     </button>
                     <button
-                        className={`border-y p-2 ${
+                        className={`border-y cursor-pointer p-2 ${
                             filters.subscription.includes("free access")
-                                ? "border-blue-400"
-                                : ""
+                                ? "bg-blue-100 text-blue-600"
+                                : "hover:bg-gray-200"
                         }`}
                         onClick={() =>
                             changeFilter("subscription", "free access")
@@ -79,10 +79,10 @@ const FilterSection = ({
                         Free access
                     </button>
                     <button
-                        className={`border p-2 rounded-r-md ${
+                        className={`border p-2 cursor-pointer border-l-0 rounded-r-md ${
                             filters.subscription.includes("fee based")
-                                ? "border-blue-400"
-                                : ""
+                                ? "bg-blue-100 text-blue-600"
+                                : "hover:bg-gray-200"
                         }`}
                         onClick={() =>
                             changeFilter("subscription", "fee based")
@@ -95,7 +95,10 @@ const FilterSection = ({
             <div className="my-2 py-2">
                 <h2 className="font-semibold">Investment Amount</h2>
                 <div className="text-sm my-1 text-wrap">
-                    <div className="my-1">
+                    <div
+                        className="my-1 p-1 hover:bg-gray-200 cursor-pointer"
+                        onClick={() => changeFilter("investmentAmount", null)}
+                    >
                         <input
                             type="radio"
                             name="invest-amount"
@@ -109,7 +112,7 @@ const FilterSection = ({
                             Any
                         </label>
                     </div>
-                    <div className="my-1">
+                    <div className="my-1 p-1 hover:bg-gray-200 cursor-pointer">
                         <input
                             type="radio"
                             name="invest-amount"
@@ -123,7 +126,7 @@ const FilterSection = ({
                             Under ₹ 5000
                         </label>
                     </div>
-                    <div className="my-1">
+                    <div className="my-1 p-1 hover:bg-gray-200 cursor-pointer">
                         <input
                             type="radio"
                             name="invest-amount"
@@ -137,7 +140,7 @@ const FilterSection = ({
                             Under ₹ 25000
                         </label>
                     </div>
-                    <div className="my-1">
+                    <div className="my-1 p-1 hover:bg-gray-200 cursor-pointer">
                         <input
                             type="radio"
                             name="invest-amount"
@@ -155,12 +158,12 @@ const FilterSection = ({
             </div>
             <div className=" my-2 py-2">
                 <h2 className="font-semibold">Volatility</h2>
-                <div className="flex justify-between">
+                <div className="flex justify-between font-semibold text-sm">
                     <button
                         className={`border rounded-sm p-2.5 ${
                             filters.volitility.includes("Low Volatility")
-                                ? "border-blue-500"
-                                : "border-gray-400 "
+                                ? "border-blue-500 bg-blue-100 text-blue-600"
+                                : "border-gray-400 hover:hover:bg-gray-200"
                         }`}
                         onClick={() =>
                             changeFilter("volitility", "Low Volatility")
@@ -171,8 +174,8 @@ const FilterSection = ({
                     <button
                         className={`border rounded-sm p-2.5 ${
                             filters.volitility.includes("Medium Volatility")
-                                ? "border-blue-500"
-                                : "border-gray-400 "
+                                ? "border-blue-500 bg-blue-100 text-blue-600"
+                                : "border-gray-400 hover:hover:bg-gray-200"
                         }`}
                         onClick={() =>
                             changeFilter("volitility", "Medium Volatility")
@@ -183,8 +186,8 @@ const FilterSection = ({
                     <button
                         className={` border rounded-sm p-2.5 ${
                             filters.volitility.includes("High Volatility")
-                                ? "border-blue-500"
-                                : "border-gray-400 "
+                                ? "border-blue-500 bg-blue-100 text-blue-600"
+                                : "border-gray-400 hover:hover:bg-gray-200"
                         }`}
                         onClick={() =>
                             changeFilter("volitility", "High Volatility")
@@ -196,7 +199,7 @@ const FilterSection = ({
             </div>
             <div className="my-2 py-2">
                 <h2 className="font-semibold">Launch Date</h2>
-                <div className="my-1">
+                <div className="my-1 p-1 hover:bg-gray-200 cursor-pointer">
                     <input
                         type="checkbox"
                         name="new-launch"
@@ -208,7 +211,7 @@ const FilterSection = ({
                                 : changeFilter("newLaunch", null)
                         }
                     />
-                    <label className="ml-2" htmlFor="new-launch">
+                    <label className="ml-2 cursor-pointer" htmlFor="new-launch">
                         Include new smallcases
                     </label>
                 </div>
@@ -216,32 +219,35 @@ const FilterSection = ({
             <div className="my-2 py-2">
                 <h2 className="font-semibold">Investment Strategy</h2>
                 <div>
-                    {
-                        investStrategyList
-                            .map(({ key, displayName }) => {
-                                return (
-                                    <div key={key} className="my-1">
-                                        <input
-                                            type="checkbox"
-                                            name={key}
-                                            id={key}
-                                            checked={filters.investementStrategy.includes(
-                                                key
-                                            )}
-                                            onChange={() =>
-                                                changeFilter(
-                                                    "investementStrategy",
-                                                    key
-                                                )
-                                            }
-                                        />
-                                        <label className="ml-2" htmlFor={key}>
-                                            {displayName}
-                                        </label>
-                                    </div>
-                                );
-                            })
-                    }
+                    {investStrategyList.map(({ key, displayName }) => {
+                        return (
+                            <div
+                                key={key}
+                                onClick={() =>
+                                    changeFilter("investementStrategy", key)
+                                }
+                                className="my-1 p-1 cursor-pointer hover:bg-gray-200"
+                            >
+                                <input
+                                    type="checkbox"
+                                    name={key}
+                                    id={key}
+                                    checked={filters.investementStrategy.includes(
+                                        key
+                                    )}
+                                    onChange={() =>
+                                        changeFilter("investementStrategy", key)
+                                    }
+                                />
+                                <label
+                                    className="ml-2 cursor-pointer"
+                                    htmlFor={key}
+                                >
+                                    {displayName}
+                                </label>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </aside>

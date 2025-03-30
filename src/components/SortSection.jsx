@@ -28,7 +28,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
     };
 
     return (
-        <div className="w-250 flex mx-auto my-5 justify-between">
+        <div className="w-264 flex mx-auto my-5 justify-between">
             <div className="flex gap-6 border-b border-gray-300 pb-2">
                 <a href="#" className="text-gray-500 hover:text-black">
                     Collections
@@ -58,56 +58,88 @@ const SortSection = ({ sortBy, setSortBy }) => {
                             className={isDropdownOpen ? "rotate-180" : ""}
                         />
                     </button>
-
-                    <ul
-                        className={`absolute ${
-                            isDropdownOpen ? "" : "hidden"
-                        } right-0 mt-1 bg-white rounded shadow-md z-10 p-2 w-48`}
-                    >
-                        {SORT_OPTIONS.map((option) => (
-                            <li
-                                key={option.value}
-                                onClick={() => handleSorting(option.value)}
-                                className="p-2 hover:bg-gray-100 cursor-pointer text-gray-700"
-                            >
-                                {option.label}
-                            </li>
-                        ))}
-                        <div className="border-t mt-2 pt-2">
-                            <p className="text-gray-600">Time period</p>
-                            <div className="flex gap-2 mt-2">
-                                {TIME_PERIODS.map((time) => (
-                                    <button
-                                        key={time.value}
-                                        className="p-1 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer border rounded"
-                                        onClick={() =>
-                                            handleSorting(time.value)
-                                        }
-                                    >
-                                        {time.label}
-                                    </button>
-                                ))}
-                            </div>
-                            <p className="text-gray-600 mt-3">Order by</p>
-                            <div className="flex gap-2 mt-1">
-                                <button
-                                    className="p-1 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer border rounded w-full"
-                                    onClick={() => handleOrder("High-Low")}
+                    {isDropdownOpen && (
+                        <ul
+                            className={`absolute right-0 mt-1 bg-white rounded shadow-md z-10 p-2 w-48`}
+                        >
+                            {SORT_OPTIONS.map((option) => (
+                                <li
+                                    key={option.value}
+                                    onClick={() => handleSorting(option.value)}
+                                    className={`p-2 cursor-pointer ${
+                                        sortBy.sortType === option.value
+                                            ? "text-blue-600"
+                                            : "text-gray-700  hover:bg-gray-100"
+                                    }`}
                                 >
-                                    High - Low
-                                </button>
-                                <button
-                                    className="p-1 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer border rounded w-full"
-                                    onClick={() => handleOrder("Low-High")}
-                                >
-                                    Low - High
-                                </button>
+                                    {option.label}
+                                </li>
+                            ))}
+                            <div className="mt-1 p-2 pt-1">
+                                <h1>Returns</h1>
+                                <p className="text-gray-600 text-sm">
+                                    Time period
+                                </p>
+                                <div className="flex mt-2 border rounded">
+                                    {TIME_PERIODS.map((time) => (
+                                        <button
+                                            key={time.value}
+                                            className={`p-1 text-sm overflow-hidden font-semibold ${
+                                                sortBy.sortType === time.value
+                                                    ? "text-blue-600 bg-blue-200"
+                                                    : "text-gray-600 hover:bg-gray-200"
+                                            } cursor-pointer w-full`}
+                                            onClick={() =>
+                                                handleSorting(time.value)
+                                            }
+                                        >
+                                            {time.label}
+                                        </button>
+                                    ))}
+                                </div>
+                                {TIME_PERIODS.find(
+                                    ({ value }) => value == sortBy.sortType
+                                ) && (
+                                    <>
+                                        <p className="text-gray-600 mt-3 text-sm">
+                                            Order by
+                                        </p>
+                                        <div className="flex mt-1 border rounded font-semibold">
+                                            <button
+                                                className={`p-1 text-sm overflow-hidden ${
+                                                    sortBy.orderBy ===
+                                                    "High-Low"
+                                                        ? "text-blue-600 bg-blue-200"
+                                                        : "text-gray-600 hover:bg-gray-200"
+                                                } cursor-pointer w-full`}
+                                                onClick={() =>
+                                                    handleOrder("High-Low")
+                                                }
+                                            >
+                                                High - Low
+                                            </button>
+                                            <button
+                                                className={`p-1 text-sm overflow-hidden ${
+                                                    sortBy.orderBy ===
+                                                    "Low-High"
+                                                        ? "text-blue-600 bg-blue-200"
+                                                        : "text-gray-600 hover:bg-gray-200"
+                                                } cursor-pointer w-full`}
+                                                onClick={() =>
+                                                    handleOrder("Low-High")
+                                                }
+                                            >
+                                                Low - High
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </div>
-                        </div>
-                    </ul>
+                        </ul>
+                    )}
                 </div>
                 {/* </div> */}
-                <div className="relative flex items-center border-b border-gray-400 w-64">
+                <div className="relative mx-2 flex items-center border-b border-gray-400 w-64">
                     <FaSearch className="absolute left-2 text-gray-400" />
                     <input
                         id="search"

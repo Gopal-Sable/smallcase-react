@@ -33,7 +33,7 @@ const ListItem = ({ portfolio, sortBy }) => {
                             </span>
                         )}
                     </div>
-                    <p className="text-gray-950 line-clamp-2 mb-2">
+                    <p className="text-gray-950 line-clamp-2 mb-2 min-w-102">
                         {portfolio.info.shortDescription}
                     </p>
                     <span className="text-gray-600">
