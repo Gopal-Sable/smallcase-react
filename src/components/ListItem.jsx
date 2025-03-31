@@ -17,7 +17,7 @@ const ListItem = ({ portfolio, sortBy }) => {
         : portfolio.platformData.ratios.cagr;
     return (
         <div className="w-220 flex justify-center">
-            <div className="flex hover:shadow-xl mx-2 w-214 hover:w-full p-4 border-b border-b-gray-300 hover:rounded-lg hover:border hover:border-gray-300 hover:text-blue-500 group">
+            <div className="flex hover:shadow-xl mx-2 w-214 hover:w-full p-4 border-b border-b-gray-200 hover:rounded-lg hover:border hover:border-gray-300 hover:text-blue-500 group">
                 <img
                     className="w-16 h-16 mr-2 rounded-sm"
                     src={LOGO_URL + portfolio.scid + ".png"}

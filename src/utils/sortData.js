@@ -15,15 +15,9 @@ export const sortByMinimumAmount = (data, sortBy = "") => {
 
 export const sortByRebalnced = (data) => {
     return data.sort((a, b) => {
-        const rebalanceA = a.info.lastRebalanced;
-        const rebalanceB = b.info.lastRebalanced;
-        if (rebalanceA > rebalanceB) {
-            return -1;
-        }
-        if (rebalanceA < rebalanceB) {
-            return 1;
-        }
-        return 0;
+        const rebalanceA = new Date(a.info.lastRebalanced);
+        const rebalanceB = new Date(b.info.lastRebalanced);
+        return rebalanceB - rebalanceA;
     });
 };
 
@@ -47,7 +41,7 @@ export const sortData = (data, sortBy) => {
             return sortByPopularity(data);
         case "minimumAmount":
             return sortByMinimumAmount(data);
-        case "rebalnced":
+        case "rebalanced":
             return sortByRebalnced(data);
         default:
             return sortByReturns(data, sortBy);
