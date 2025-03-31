@@ -24,14 +24,14 @@ let initialSorting = {
 function App() {
     const [filters, setFilters] = useState(initialFilters);
     const [sortBy, setSortBy] = useState(initialSorting);
-    const [smallCaseData, setSmallCaseData] = useState(null); 
+    const [smallCaseData, setSmallCaseData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(null);
 
     useEffect(() => {
         async function getData() {
             try {
-                const res = await fetch("./smallcases.json"); 
+                const res = await fetch("./smallcases.json");
                 if (!res.ok) throw new Error("Failed to fetch data");
                 const data = await res.json();
                 setSmallCaseData(data);
@@ -45,7 +45,7 @@ function App() {
     }, []);
 
     //Showing loading and errors
-    if (isLoading) return <p className="text-center mt-5">Loading...</p>;
+    // if (isLoading) return <p className="text-center mt-5">Loading...</p>;
     if (isError)
         return <p className="text-center mt-5 text-red-500">{isError}</p>;
 
@@ -74,7 +74,13 @@ function App() {
                     investStrategyList={investStrategyList}
                     clearAllfilters={clearAllfilters}
                 />
-                <SmallCaseList smallCaseData={sortedData} sortBy={sortBy} />
+                {isLoading ? (
+                    <div className="flex mx-2 w-218 p-4 justify-center items-center text-2xl ">
+                        Loading.......
+                    </div>
+                ) : (
+                    <SmallCaseList smallCaseData={sortedData} sortBy={sortBy} />
+                )}
             </div>
         </>
     );

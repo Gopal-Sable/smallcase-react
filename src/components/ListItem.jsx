@@ -1,5 +1,6 @@
 import React from "react";
 import { CAGR_LABLE, LOGO_URL } from "../utils/constantsAndUrl";
+import { CiBookmark } from "react-icons/ci";
 let divideByYear = {
     monthly: 1,
     halfyearly: 1,
@@ -15,8 +16,8 @@ const ListItem = ({ portfolio, sortBy }) => {
           ) - 1
         : portfolio.platformData.ratios.cagr;
     return (
-        <div className="w-212 flex justify-center">
-            <div className="flex hover:shadow-xl mx-2 w-206 hover:w-full p-4 border-b border-b-gray-300 hover:rounded-lg hover:border hover:border-gray-300 hover:text-blue-500">
+        <div className="w-220 flex justify-center">
+            <div className="flex hover:shadow-xl mx-2 w-214 hover:w-full p-4 border-b border-b-gray-300 hover:rounded-lg hover:border hover:border-gray-300 hover:text-blue-500 group">
                 <img
                     className="w-16 h-16 mr-2 rounded-sm"
                     src={LOGO_URL + portfolio.scid + ".png"}
@@ -70,12 +71,13 @@ const ListItem = ({ portfolio, sortBy }) => {
                             {(cagr * 100).toFixed(2)}
                         </p>
                     </div>
-                    <button className="text-nowrap mx-2">
+                    <button className="text-nowrap mx-2 text-gray-800 border-gray-400 p-2 rounded border h-fit my-auto">
                         {portfolio.stats.ratios.riskLabel ===
                         "Medium Volatility"
                             ? "Med. Volatility"
                             : portfolio.stats.ratios.riskLabel}
                     </button>
+                    <CiBookmark className="w-6 h-6 text-black my-auto  opacity-0 group-hover:opacity-100" />
                 </div>
             </div>
         </div>

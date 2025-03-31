@@ -15,7 +15,7 @@ const SmallCaseList = ({ smallCaseData, sortBy }) => {
                     );
                 })
             ) : (
-                <div className="flex hover:shadow-xl mx-2 w-198 border p-4 border-white border-b-gray-400 hover:rounded-lg hover:border-gray-400 hover:text-blue-500">
+                <div className="flex mx-2 w-216 p-4 justify-center items-center text-2xl ">
                     No Smallcase found
                 </div>
             )}

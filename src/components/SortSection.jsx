@@ -13,7 +13,6 @@ const SORT_OPTIONS = [
     { label: "Popularity", value: "popularity" },
     { label: "Minimum Amount", value: "minimumAmount" },
     { label: "Recently Rebalanced", value: "rebalanced" },
-    // { label: "Returns", value: "returns" },
 ];
 
 const SortSection = ({ sortBy, setSortBy }) => {
@@ -27,16 +26,23 @@ const SortSection = ({ sortBy, setSortBy }) => {
         setSortBy((prev) => ({ ...prev, orderBy }));
     };
 
+    // Find the selected sorting option
+    const selectedOption =
+        SORT_OPTIONS.find(({ value }) => value === sortBy?.sortType) ||
+        TIME_PERIODS.find(({ value }) => value === sortBy?.sortType) ||
+        null;
+
+    // Determine sort order label
+    const sortOrder = sortBy?.orderBy === "High-Low" ? "(H → L)" : "(L → H)";
+
+    // const result = selectedOption ? `${sortOrder}` : "";
     return (
-        <div className="w-264 flex mx-auto my-5 justify-between">
-            <div className="flex gap-6 border-b border-gray-300 pb-2">
+        <div className="w-274 flex mx-auto my-5 justify-between border-b ">
+            <div className="flex gap-6 border-gray-200 pb-2">
                 <a href="#" className="text-gray-500 hover:text-black">
                     Collections
                 </a>
-                <a
-                    href="#"
-                    className="text-black font-semibold border-b-2 border-black"
-                >
+                <a href="#" className="text-blue-600 font-semibold ">
                     All smallcases
                 </a>
                 <a href="#" className="text-gray-500 hover:text-black">
@@ -44,15 +50,22 @@ const SortSection = ({ sortBy, setSortBy }) => {
                 </a>
             </div>
             <div className="flex">
-                <div className="relative">
+                <div className="relative mx-2 flex items-center border-b border-gray-400 ">
                     <button
                         // onFocus={() => setIsDropdownOpen(true)}
                         // onBlur={() => setIsDropdownOpen(false)}
                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className="bg-white text-gray-700 border-b border-gray-400 px-3 py-1 flex items-center gap-2"
+                        className="bg-white text-gray-700 px-3 py-1 flex items-center gap-2"
                     >
                         <span>Sort by</span>
-                        <span className="font-semibold">{sortBy.sortType}</span>
+                        <span className="font-semibold w-42">
+                            {selectedOption ? selectedOption?.displayValue || selectedOption.label : "Sort By"}
+                            {TIME_PERIODS.find(
+                                ({ value }) => value === sortBy.sortType
+                            )
+                                ? " "+sortOrder
+                                : "Sort By"}
+                        </span>
                         <FaChevronDown
                             fontSize="12px"
                             className={isDropdownOpen ? "rotate-180" : ""}
@@ -60,7 +73,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
                     </button>
                     {isDropdownOpen && (
                         <ul
-                            className={`absolute right-0 mt-1 bg-white rounded shadow-md z-10 p-2 w-48`}
+                            className={`absolute right-0 top-12 mt-1 bg-white rounded shadow-md z-10 p-2 w-48`}
                         >
                             {SORT_OPTIONS.map((option) => (
                                 <li
@@ -86,7 +99,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
                                             key={time.value}
                                             className={`p-1 text-sm overflow-hidden font-semibold ${
                                                 sortBy.sortType === time.value
-                                                    ? "text-blue-600 bg-blue-200"
+                                                    ? "text-blue-600 bg-blue-100"
                                                     : "text-gray-600 hover:bg-gray-200"
                                             } cursor-pointer w-full`}
                                             onClick={() =>
@@ -109,7 +122,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
                                                 className={`p-1 text-sm overflow-hidden ${
                                                     sortBy.orderBy ===
                                                     "High-Low"
-                                                        ? "text-blue-600 bg-blue-200"
+                                                        ? "text-blue-600 bg-blue-100"
                                                         : "text-gray-600 hover:bg-gray-200"
                                                 } cursor-pointer w-full`}
                                                 onClick={() =>
@@ -122,7 +135,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
                                                 className={`p-1 text-sm overflow-hidden ${
                                                     sortBy.orderBy ===
                                                     "Low-High"
-                                                        ? "text-blue-600 bg-blue-200"
+                                                        ? "text-blue-600 bg-blue-100"
                                                         : "text-gray-600 hover:bg-gray-200"
                                                 } cursor-pointer w-full`}
                                                 onClick={() =>
@@ -138,7 +151,6 @@ const SortSection = ({ sortBy, setSortBy }) => {
                         </ul>
                     )}
                 </div>
-                {/* </div> */}
                 <div className="relative mx-2 flex items-center border-b border-gray-400 w-64">
                     <FaSearch className="absolute left-2 text-gray-400" />
                     <input
