@@ -64,7 +64,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
                                 ({ value }) => value === sortBy.sortType
                             )
                                 ? " "+sortOrder
-                                : "Sort By"}
+                                : ""}
                         </span>
                         <FaChevronDown
                             fontSize="12px"
