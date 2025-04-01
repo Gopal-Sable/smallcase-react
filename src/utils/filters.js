@@ -19,7 +19,7 @@ export const investmentAmount = (data, amount) => {
     );
 };
 
-export const volitility = (data, risk) => {
+export const volatility = (data, risk) => {
     if (risk.length === 0) {
         return data;
     }
@@ -49,7 +49,7 @@ const newLaunch = (data, filter) => {
         const oneYearAgo = new Date();
         oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
-        return new Date(portfolio.info.nameAttributes.createdAt) >= oneYearAgo;
+        return new Date(portfolio.info.nameAttributes.createdAt).getFullYear >= oneYearAgo;
     });
 };
 export const combinedFilter = (data, filters) => {
@@ -60,8 +60,8 @@ export const combinedFilter = (data, filters) => {
     if (filters.investmentAmount) {
         filterData = investmentAmount(filterData, filters.investmentAmount);
     }
-    if (filters.volitility) {
-        filterData = volitility(filterData, filters.volitility);
+    if (filters.volatility) {
+        filterData = volatility(filterData, filters.volatility);
     }
     if (filters.investementStrategy) {
         filterData = investementStrategy(

@@ -93,7 +93,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
                                 <p className="text-gray-600 text-sm">
                                     Time period
                                 </p>
-                                <div className="flex mt-2 border rounded">
+                                <div className="flex mt-2 border overflow-hidden rounded">
                                     {TIME_PERIODS.map((time) => (
                                         <button
                                             key={time.value}
@@ -117,7 +117,7 @@ const SortSection = ({ sortBy, setSortBy }) => {
                                         <p className="text-gray-600 mt-3 text-sm">
                                             Order by
                                         </p>
-                                        <div className="flex mt-1 border rounded font-semibold">
+                                        <div className="flex mt-1 border overflow-hidden rounded font-semibold">
                                             <button
                                                 className={`p-1 text-sm overflow-hidden ${
                                                     sortBy.orderBy ===

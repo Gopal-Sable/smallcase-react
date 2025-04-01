@@ -1,4 +1,9 @@
+import Filter from "./Filter";
 import React from "react";
+import Button from "./Button";
+import RadioButton from "./RadioButton";
+import CheckBox from "./CheckBox";
+import { filtersConfigs } from "../utils/constantsAndUrl";
 
 const FilterSection = ({
     filters,
@@ -19,7 +24,7 @@ const FilterSection = ({
                     [feild]: value === null ? [] : [value],
                 };
             } else if (
-                feild === "volitility" ||
+                feild === "volatility" ||
                 feild === "investementStrategy"
             ) {
                 newfilter = {
@@ -51,205 +56,119 @@ const FilterSection = ({
                     Clear All
                 </button>
             </div>
-            <div className=" font-semibold my-2 py-2">
-                <h2>Subscription Type</h2>
-                <div className="text-sm font-semibold  flex justify-between my-1 text-wrap">
-                    <button
-                        className={`border border-r-0 cursor-pointer rounded-l-md p-2 ${
-                            filters.subscription.length === 0
-                                ? "bg-blue-100 text-blue-600"
-                                : "hover:bg-gray-200"
-                        }`}
-                        onClick={() => {
-                            changeFilter("subscription", null);
-                        }}
-                    >
-                        Show all
-                    </button>
-                    <button
-                        className={`border-y cursor-pointer p-2 ${
-                            filters.subscription.includes("free access")
-                                ? "bg-blue-100 text-blue-600"
-                                : "hover:bg-gray-200"
-                        }`}
-                        onClick={() =>
-                            changeFilter("subscription", "free access")
+            <Filter title={filtersConfigs[0].title}>
+                <div className={filtersConfigs[0].classes}>
+                    {filtersConfigs[0].filtersOptions.map(
+                        ({ displayValue, value }) => {
+                            return (
+                                <Button
+                                    key={displayValue}
+                                    name={displayValue}
+                                    handleClick={() =>
+                                        changeFilter(
+                                            filtersConfigs[0].filter,
+                                            value
+                                        )
+                                    }
+                                    active={
+                                        filters.subscription.includes(value) ||
+                                        (value === null &&
+                                            filters.subscription.length === 0)
+                                    }
+                                />
+                            );
                         }
-                    >
-                        Free access
-                    </button>
-                    <button
-                        className={`border p-2 cursor-pointer border-l-0 rounded-r-md ${
-                            filters.subscription.includes("fee based")
-                                ? "bg-blue-100 text-blue-600"
-                                : "hover:bg-gray-200"
-                        }`}
-                        onClick={() =>
-                            changeFilter("subscription", "fee based")
-                        }
-                    >
-                        Fee based
-                    </button>
+                    )}
                 </div>
-            </div>
-            <div className="my-2 py-2">
-                <h2 className="font-semibold">Investment Amount</h2>
-                <div className="text-sm my-1 text-wrap">
-                    <div
-                        className="my-1 p-1 hover:bg-gray-200 cursor-pointer"
-                        onClick={() => changeFilter("investmentAmount", null)}
-                    >
-                        <input
-                            type="radio"
-                            name="invest-amount"
-                            id="Any"
-                            checked={filters.investmentAmount.length === 0}
-                            onChange={() =>
-                                changeFilter("investmentAmount", null)
-                            }
-                        />
-                        <label className="ml-2" htmlFor="Any">
-                            Any
-                        </label>
-                    </div>
-                    <div className="my-1 p-1 hover:bg-gray-200 cursor-pointer">
-                        <input
-                            type="radio"
-                            name="invest-amount"
-                            id="5000"
-                            checked={filters.investmentAmount.includes(5000)}
-                            onChange={() =>
-                                changeFilter("investmentAmount", 5000)
-                            }
-                        />
-                        <label className="ml-2" htmlFor="5000">
-                            Under ₹ 5000
-                        </label>
-                    </div>
-                    <div className="my-1 p-1 hover:bg-gray-200 cursor-pointer">
-                        <input
-                            type="radio"
-                            name="invest-amount"
-                            id="25000"
-                            checked={filters.investmentAmount.includes(25000)}
-                            onChange={() =>
-                                changeFilter("investmentAmount", 25000)
-                            }
-                        />
-                        <label className="ml-2" htmlFor="25000">
-                            Under ₹ 25000
-                        </label>
-                    </div>
-                    <div className="my-1 p-1 hover:bg-gray-200 cursor-pointer">
-                        <input
-                            type="radio"
-                            name="invest-amount"
-                            id="50000"
-                            checked={filters.investmentAmount.includes(50000)}
-                            onChange={() =>
-                                changeFilter("investmentAmount", 50000)
-                            }
-                        />
-                        <label className="ml-2" htmlFor="50000">
-                            Under ₹ 50000
-                        </label>
-                    </div>
+            </Filter>
+            <Filter title={filtersConfigs[1].title}>
+                <div className={filtersConfigs[1].classes}>
+                    {filtersConfigs[1].filtersOptions.map(
+                        ({ displayValue, value }) => {
+                            return (
+                                <RadioButton
+                                    key={displayValue}
+                                    name={displayValue}
+                                    handleClick={() =>
+                                        changeFilter(
+                                            filtersConfigs[1].filter,
+                                            value
+                                        )
+                                    }
+                                    isChecked={
+                                        filters.investmentAmount.includes(
+                                            value
+                                        ) ||
+                                        (value === null &&
+                                            filters.investmentAmount.length ===
+                                                0)
+                                    }
+                                />
+                            );
+                        }
+                    )}
                 </div>
-            </div>
-            <div className=" my-2 py-2">
-                <h2 className="font-semibold">Volatility</h2>
-                <div className="flex justify-between font-semibold text-sm">
-                    <button
-                        className={`border rounded-sm p-2.5 ${
-                            filters.volitility.includes("Low Volatility")
-                                ? "border-blue-500 bg-blue-100 text-blue-600"
-                                : "border-gray-400 hover:hover:bg-gray-200"
-                        }`}
-                        onClick={() =>
-                            changeFilter("volitility", "Low Volatility")
+            </Filter>
+            <Filter title={filtersConfigs[2].title}>
+                <div className={filtersConfigs[2].classes}>
+                    {filtersConfigs[2].filtersOptions.map(
+                        ({ displayValue, value }) => {
+                            return (
+                                <Button
+                                    key={displayValue}
+                                    name={displayValue}
+                                    handleClick={() =>
+                                        changeFilter(
+                                            filtersConfigs[2].filter,
+                                            value
+                                        )
+                                    }
+                                    active={filters.volatility?.includes(value)}
+                                    border={true}
+                                />
+                            );
                         }
-                    >
-                        Low
-                    </button>
-                    <button
-                        className={`border rounded-sm p-2.5 ${
-                            filters.volitility.includes("Medium Volatility")
-                                ? "border-blue-500 bg-blue-100 text-blue-600"
-                                : "border-gray-400 hover:hover:bg-gray-200"
-                        }`}
-                        onClick={() =>
-                            changeFilter("volitility", "Medium Volatility")
-                        }
-                    >
-                        Medium
-                    </button>
-                    <button
-                        className={` border rounded-sm p-2.5 ${
-                            filters.volitility.includes("High Volatility")
-                                ? "border-blue-500 bg-blue-100 text-blue-600"
-                                : "border-gray-400 hover:hover:bg-gray-200"
-                        }`}
-                        onClick={() =>
-                            changeFilter("volitility", "High Volatility")
-                        }
-                    >
-                        High
-                    </button>
+                    )}
                 </div>
-            </div>
-            <div className="my-2 py-2">
-                <h2 className="font-semibold">Launch Date</h2>
-                <div className="my-1 p-1 hover:bg-gray-200 cursor-pointer">
-                    <input
-                        type="checkbox"
-                        name="new-launch"
-                        id="new-launch"
-                        checked={filters.newLaunch.length !== 0}
-                        onChange={() =>
-                            filters.newLaunch.length === 0
-                                ? changeFilter("newLaunch", true)
-                                : changeFilter("newLaunch", null)
+            </Filter>
+            <Filter title={filtersConfigs[3].title}>
+                <div className={filtersConfigs[3].classes}>
+                    {filtersConfigs[3].filtersOptions.map(
+                        ({ displayValue }) => {
+                            return (
+                                <CheckBox
+                                    key={displayValue}
+                                    name={displayValue}
+                                    handleClick={() =>
+                                        filters.newLaunch.length === 0
+                                            ? changeFilter("newLaunch", true)
+                                            : changeFilter("newLaunch", null)
+                                    }
+                                    checked={filters.newLaunch.length !== 0}
+                                />
+                            );
                         }
-                    />
-                    <label className="ml-2 cursor-pointer" htmlFor="new-launch">
-                        Include new smallcases
-                    </label>
+                    )}
                 </div>
-            </div>
-            <div className="my-2 py-2">
-                <h2 className="font-semibold">Investment Strategy</h2>
+            </Filter>
+            <Filter title="Investment Strategy">
                 <div>
                     {investStrategyList.map(({ key, displayName }) => {
                         return (
-                            <div
+                            <CheckBox
                                 key={key}
-                                onClick={() =>
+                                handleClick={() =>
                                     changeFilter("investementStrategy", key)
                                 }
-                                className="my-1 p-1 cursor-pointer hover:bg-gray-200"
-                            >
-                                <input
-                                    type="checkbox"
-                                    name={key}
-                                    id={key}
-                                    checked={filters.investementStrategy.includes(
-                                        key
-                                    )}
-                                    onChange={() =>
-                                        changeFilter("investementStrategy", key)
-                                    }
-                                />
-                                <label
-                                    className="ml-2 cursor-pointer"
-                                    htmlFor={key}
-                                >
-                                    {displayName}
-                                </label>
-                            </div>
+                                name={displayName}
+                                checked={filters.investementStrategy.includes(
+                                    key
+                                )}
+                            />
                         );
                     })}
                 </div>
-            </div>
+            </Filter>
         </aside>
     );
 };

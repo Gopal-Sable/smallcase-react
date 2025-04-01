@@ -11,7 +11,7 @@ import { sortData } from "./utils/sortData";
 let initialFilters = {
     subscription: [],
     investmentAmount: [],
-    volitility: [],
+    volatility: [],
     investementStrategy: [],
     newLaunch: [],
 };
