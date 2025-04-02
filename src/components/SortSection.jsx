@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch, FaChevronDown } from "react-icons/fa";
+import SortModal from "./SortModal";
 
 const TIME_PERIODS = [
     { label: "1M", value: "monthly", displayValue: "1M Returns" },
@@ -59,11 +60,14 @@ const SortSection = ({ sortBy, setSortBy }) => {
                     >
                         <span>Sort by</span>
                         <span className="font-semibold w-42">
-                            {selectedOption ? selectedOption?.displayValue || selectedOption.label : "Sort By"}
+                            {selectedOption
+                                ? selectedOption?.displayValue ||
+                                  selectedOption.label
+                                : "Sort By"}
                             {TIME_PERIODS.find(
                                 ({ value }) => value === sortBy.sortType
                             )
-                                ? " "+sortOrder
+                                ? " " + sortOrder
                                 : ""}
                         </span>
                         <FaChevronDown
@@ -72,83 +76,13 @@ const SortSection = ({ sortBy, setSortBy }) => {
                         />
                     </button>
                     {isDropdownOpen && (
-                        <ul
-                            className={`absolute right-0 top-12 mt-1 bg-white rounded shadow-md z-10 p-2 w-48`}
-                        >
-                            {SORT_OPTIONS.map((option) => (
-                                <li
-                                    key={option.value}
-                                    onClick={() => handleSorting(option.value)}
-                                    className={`p-2 cursor-pointer ${
-                                        sortBy.sortType === option.value
-                                            ? "text-blue-600"
-                                            : "text-gray-700  hover:bg-gray-100"
-                                    }`}
-                                >
-                                    {option.label}
-                                </li>
-                            ))}
-                            <div className="mt-1 p-2 pt-1">
-                                <h1>Returns</h1>
-                                <p className="text-gray-600 text-sm">
-                                    Time period
-                                </p>
-                                <div className="flex mt-2 border overflow-hidden rounded">
-                                    {TIME_PERIODS.map((time) => (
-                                        <button
-                                            key={time.value}
-                                            className={`p-1 text-sm overflow-hidden font-semibold ${
-                                                sortBy.sortType === time.value
-                                                    ? "text-blue-600 bg-blue-100"
-                                                    : "text-gray-600 hover:bg-gray-200"
-                                            } cursor-pointer w-full`}
-                                            onClick={() =>
-                                                handleSorting(time.value)
-                                            }
-                                        >
-                                            {time.label}
-                                        </button>
-                                    ))}
-                                </div>
-                                {TIME_PERIODS.find(
-                                    ({ value }) => value == sortBy.sortType
-                                ) && (
-                                    <>
-                                        <p className="text-gray-600 mt-3 text-sm">
-                                            Order by
-                                        </p>
-                                        <div className="flex mt-1 border overflow-hidden rounded font-semibold">
-                                            <button
-                                                className={`p-1 text-sm overflow-hidden ${
-                                                    sortBy.orderBy ===
-                                                    "High-Low"
-                                                        ? "text-blue-600 bg-blue-100"
-                                                        : "text-gray-600 hover:bg-gray-200"
-                                                } cursor-pointer w-full`}
-                                                onClick={() =>
-                                                    handleOrder("High-Low")
-                                                }
-                                            >
-                                                High - Low
-                                            </button>
-                                            <button
-                                                className={`p-1 text-sm overflow-hidden ${
-                                                    sortBy.orderBy ===
-                                                    "Low-High"
-                                                        ? "text-blue-600 bg-blue-100"
-                                                        : "text-gray-600 hover:bg-gray-200"
-                                                } cursor-pointer w-full`}
-                                                onClick={() =>
-                                                    handleOrder("Low-High")
-                                                }
-                                            >
-                                                Low - High
-                                            </button>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        </ul>
+                        <SortModal
+                            sortBy={sortBy}
+                            handleClick={handleSorting}
+                            handleOrder={handleOrder}
+                            SORT_OPTIONS={SORT_OPTIONS}
+                            TIME_PERIODS={TIME_PERIODS}
+                        />
                     )}
                 </div>
                 <div className="relative mx-2 flex items-center border-b border-gray-400 w-64">
