@@ -9,9 +9,6 @@ export const CAGR_LABLE = {
     fiveYear: "5Y CAGR",
 };
 
-// subscription: ["Show all", "Free access", "Fee based"],
-// investmentAmount: ["Any", 5000, 25000, 50000],
-// volitility: ["Low Volatility", "Medium Volatility", "High Volatility"],
 export const filtersConfigs = [
     {
         title: "Subscription Type",
